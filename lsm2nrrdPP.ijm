@@ -9,8 +9,8 @@ Xmove = 0;
 //run("LSM Reader", "open=[" + name + "]");
 open(name);
 wait(800);
-ch1 = replace(name, ".lsm", "-PP_C1.nrrd");
-ch2 = replace(name, ".lsm", "-PP_C2.nrrd");
+ch1 = replace(replace(name, ".tif", ".lsm"), ".lsm", "-PP_C1.nrrd");
+ch2 = replace(replace(name, ".tif", ".lsm"), ".lsm", "-PP_C2.nrrd");
 logfile = replace(name, ".lsm", "-PP_Meta.log");
 run("Split Channels");
 wait(800);
@@ -44,9 +44,9 @@ makeRectangle(Imp, 1, Iw, Itp);
 getStatistics(dummy, Rm);
 if (Lm > Rm){
     Angle = Angle;
-    print ("rotaing clockwise " + d2s(Angle,0) + "degrees");
+    print ("rotating clockwise " + d2s(Angle,0) + "degrees");
 }else{
-    print ("rotaing anti-clockwise " + d2s(Angle,0) + "degrees");
+    print ("rotating anti-clockwise " + d2s(Angle,0) + "degrees");
     Angle = (360 - Angle);
 }
 
