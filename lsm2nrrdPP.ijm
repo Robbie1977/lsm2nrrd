@@ -135,7 +135,7 @@ if (btm < tpm){
 // rename according to mean values (largest = BG)
 nCh2 = ch2;
 nCh1 = ch1;
-if (C2m > C1m){
+if ((C2m * 1.5) > C1m){   // ch1 has to be 1.5 times ch2 to justify a swap from default
     levlog=levlog+"(Ch2 is BG)";
     print ("BG: C2");
     print ("SG: C1");
