@@ -18,7 +18,7 @@ else:
     print data2.shape
     print size
     
-    s = 10
+    s = 2
     
     d1 = int(round(size[0] / s))
     d2 = int(round(size[1] / s))
@@ -28,33 +28,23 @@ else:
     print d3
     
     
-    Rs1 = np.zeros([s,s,s])
-    Rs2 = np.zeros([s,s,s])
+    Rs1 = np.zeros([s])
+    Rs2 = np.zeros([s])
     
-    iy=0
-    for y in range(d1+2, size[0], d1):
-        ix=0
-        for x in range(d2+2, size[1], d2):
-            iz=0
-            for z in range(d3+1, size[2], d3):
-                #print '(%s,%s,%s)-(%s,%s,%s)'% (iy,ix,iz,y,x,z)
-                #print data2[y-d1:,x-d2:,z-d3:].shape
-                Rs1[iy][ix][iz] = np.mean(data1[y-d1:y,x-d2:x,z-d3:z])
-                Rs2[iy][ix][iz] = np.mean(data2[y-d1:y,x-d2:x,z-d3:z])
-                #if (Rs2[iy][ix][iz] > 0):
-                    #print '(%s,%s,%s)-%s'% (y,x,z,Rs2[iy][ix][iz])
-                iz += 1
-            ix +=1
-        iy +=1
+    Rs1[0] = np.sum(data1[d1-5:d1+5,d2-5:d2+5,0:d3])
+    Rs1[1] = np.sum(data1[d1-5:d1+5,d2-5:d2+5,d3:])
+    Rs2[0] = np.sum(data2[d1-5:d1+5,d-52:d2+5,0:d3])
+    Rs2[1] = np.sum(data2[d1-5:d1+5,d2-5:d2+5,d3:])
+                
     print Rs1
     
     print '----------'
     
     print Rs2
           
-    outfile='test1.nrrd'
+    #outfile='test1.nrrd'
 
-    print 'Saving result to %s...'% outfile
-    nrrd.write(outfile, np.uint8(Rs2), options=header)
+    #print 'Saving result to %s...'% outfile
+    #nrrd.write(outfile, np.uint8(Rs2), options=header)
 
 print 'Done.'
