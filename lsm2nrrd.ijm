@@ -2,7 +2,7 @@
 // Designed to open and PreProcess 2 channel LSM (or tif) image stacks and output 2 NRRD files
 // Written by Robert Court - r.court@ed.ac.uk 
 
-Angle = 45; // leave positive - rotation direction automated.
+
 
 name = getArgument;
 if (name=="") exit ("No argument!");
@@ -33,33 +33,13 @@ levlog=levlog+"->"+d2s(hmin,0)+","+d2s(hmax,0)+".";
 print ("Adjusted to (min,max): " + d2s(hmin,0) + "," + d2s(hmax,0));
 
 
-// check rotation direction
-Iw = getWidth();
-Ih = getHeight();
-Imp = round(Iw/2);
-Itp = round(Ih/10);
-Iw = Iw -1;
-makeRectangle(1, 1, Imp, Itp);
-getStatistics(dummy, Lm);
-makeRectangle(Imp, 1, Iw, Itp);
-getStatistics(dummy, Rm);
-if (Lm > Rm){
-    Angle = Angle;
-    print ("rotating clockwise " + d2s(Angle,0) + "degrees");
-}else{
-    print ("rotating anti-clockwise " + d2s(Angle,0) + "degrees");
-    Angle = (360 - Angle);
-}
 
 close();
 wait(300);
 setMinAndMax(hmin, hmax);
 wait(300);
 
-run("Rotate... ", "angle=Angle grid=1 interpolation=Bilinear enlarge stack"); //remove diagonal tilt
-wait(800);
 
-levlog=levlog+"[A:" + d2s(Angle,0) + "]";
 
 wait(300);
 run("8-bit");
@@ -86,10 +66,7 @@ close();
 wait(300);
 setMinAndMax(hmin, hmax);
 wait(300);
-run("Rotate... ", "angle=Angle grid=1 interpolation=Bilinear enlarge stack"); //remove diagonal tilt
-wait(800);
 
-levlog=levlog+"[A:" + d2s(Angle,0) + "]";
 
 
 wait(300);
