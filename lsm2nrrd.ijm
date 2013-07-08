@@ -1,5 +1,5 @@
-// ImageJ macro lsm2nrrdPP.ijm Ver 3.03
-// Designed to open and PreProcess 2 channel LSM (or tif) image stacks and output 2 NRRD files
+// ImageJ macro lsm2nrrd.ijm
+// Designed to open 2 channel LSM (or tif) image stacks and output 2 NRRD files
 // Written by Robert Court - r.court@ed.ac.uk 
 
 
