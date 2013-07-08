@@ -21,7 +21,7 @@ Output files will be:
 inputfilename_BG.nrrd
 inputfilename_SG.nrrd
 
-BackGround and SiGnal channels repectively.
+BackGround and SiGnal channels respectively.
 
 
 
