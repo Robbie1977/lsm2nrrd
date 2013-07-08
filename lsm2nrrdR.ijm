@@ -1,15 +1,12 @@
-// ImageJ macro lsm2nrrdPP.ijm
-// Designed to open and PreProcess 2 channel LSM (or tif) image stacks and output 2 NRRD files
+// ImageJ macro lsm2nrrdR.ijm
+// Designed to open and rotate 2 channel LSM (or tif) image stacks and output 2 NRRD files
 // Written by Robert Court - r.court@ed.ac.uk 
 
+Angle = 45; // leave positive - rotation direction automated.
 
 name = getArgument;
 if (name=="") exit ("No argument!");
 setBatchMode(true);
-
-Angle = 45; // leave positive - rotation direction automated.
-Ymove = (-300);
-Xmove = 0;
 
 //run("LSM Reader", "open=[" + name + "]");
 open(name);
@@ -35,8 +32,7 @@ wait(100);
 levlog=levlog+"->"+d2s(hmin,0)+","+d2s(hmax,0)+".";
 print ("Adjusted to (min,max): " + d2s(hmin,0) + "," + d2s(hmax,0));
 
-// check which channel is BG
-getStatistics(dummy, C2m);
+
 // check rotation direction
 Iw = getWidth();
 Ih = getHeight();
@@ -59,12 +55,11 @@ close();
 wait(300);
 setMinAndMax(hmin, hmax);
 wait(300);
+
 run("Rotate... ", "angle=Angle grid=1 interpolation=Bilinear enlarge stack"); //remove diagonal tilt
 wait(800);
 
-// trial measure
-run("Translate...", "x=Xmove y=Ymove interpolation=None stack");
-levlog=levlog+"[A:" + d2s(Angle,0) + "e,Y:" + d2s(Ymove,0) + ",X:" + d2s(Xmove,0) + "]";
+levlog=levlog+"[A:" + d2s(Angle,0) + "]";
 
 wait(300);
 run("8-bit");
@@ -86,8 +81,6 @@ wait(100);
 levlog=levlog+"->"+d2s(hmin,0)+","+d2s(hmax,0)+".";
 print ("Adjusted to (min,max): " + d2s(hmin,0) + "," + d2s(hmax,0));
 
-// check which channel is BG
-getStatistics(dummy, C1m);
 
 close();
 wait(300);
@@ -96,40 +89,17 @@ wait(300);
 run("Rotate... ", "angle=Angle grid=1 interpolation=Bilinear enlarge stack"); //remove diagonal tilt
 wait(800);
 
-// trial measure
-run("Translate...", "x=Xmove y=Ymove interpolation=None stack");
-levlog=levlog+"[A:" + d2s(Angle,0) + "e,Y:" + d2s(Ymove,0) + ",X:" + d2s(Xmove,0) + "]";
+levlog=levlog+"[A:" + d2s(Angle,0) + "]";
 
-// rename according to mean values (largest = BG)
-nCh2 = ch2;
-nCh1 = ch1;
-if ((C2m * 1.5) > C1m){   // ch1 has to be 1.5 times ch2 to justify a swap from default
-    levlog=levlog+"(Ch2 is BG)";
-    print ("BG: C2");
-    print ("SG: C1");
-    nCh2 = replace(ch2, "C2", "BG");
-    nCh1 = replace(ch1, "C1", "SG");
-}else{
-    levlog=levlog+"(Ch1 is BG)";
-    print ("BG: C1");
-    print ("SG: C2");
-    nCh2 = replace(ch2, "C2", "SG");
-    nCh1 = replace(ch1, "C1", "BG");
-}
-
-if (File.rename(ch2, nCh2) > 0){
-    print ("File renamed OK.");
-}else{
-    print ("Files rename FAILED.");
-}
 
 wait(300);
 run("8-bit");
 wait(300);
-run("Nrrd ... ", "nrrd=[" + nCh1 + "]");
+run("Nrrd ... ", "nrrd=[" + Ch1 + "]");
 wait(800);
 close();
 
 File.saveString(levlog+"\r\n", logfile);
 
 run("Quit");
+
