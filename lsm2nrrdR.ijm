@@ -1,5 +1,5 @@
-// ImageJ macro lsm2nrrdPP.ijm Ver 3.03
-// Designed to open and PreProcess 2 channel LSM (or tif) image stacks and output 2 NRRD files
+// ImageJ macro lsm2nrrdR.ijm
+// Designed to open and rotate 2 channel LSM (or tif) image stacks and output 2 NRRD files
 // Written by Robert Court - r.court@ed.ac.uk 
 
 Angle = 45; // leave positive - rotation direction automated.
