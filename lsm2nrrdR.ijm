@@ -98,7 +98,7 @@ levlog=levlog+"[A:" + d2s(Angle,0) + "]";
 wait(300);
 run("8-bit");
 wait(300);
-run("Nrrd ... ", "nrrd=[./" + Ch1 + "]");
+run("Nrrd ... ", "nrrd=[./" + ch1 + "]");
 wait(800);
 close();
 
