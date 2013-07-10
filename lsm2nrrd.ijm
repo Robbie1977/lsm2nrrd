@@ -6,14 +6,17 @@
 
 name = getArgument;
 if (name=="") exit ("No argument!");
+parts=split(name,"/");
+filename = "";
+filename = parts[parts.length-1];
 setBatchMode(true);
 
 //run("LSM Reader", "open=[" + name + "]");
 open(name);
 wait(800);
-ch1 = replace(replace(name, ".tif", ".lsm"), ".lsm", "-PP_C1.nrrd");
-ch2 = replace(replace(name, ".tif", ".lsm"), ".lsm", "-PP_C2.nrrd");
-logfile = replace(name, ".lsm", "-PP_Meta.log");
+ch1 = replace(replace(filename, ".tif", ".lsm"), ".lsm", "-PP_C1.nrrd");
+ch2 = replace(replace(filename, ".tif", ".lsm"), ".lsm", "-PP_C2.nrrd");
+logfile = replace(filename, ".lsm", "-PP_Meta.log");
 run("Split Channels");
 wait(800);
 slices = 0;
@@ -44,7 +47,7 @@ wait(300);
 wait(300);
 run("8-bit");
 wait(300);
-run("Nrrd ... ", "nrrd=[" + ch2 + "]");
+run("Nrrd ... ", "nrrd=[./" + ch2 + "]");
 wait(800);
 close();
 wait(100);
@@ -72,11 +75,11 @@ wait(300);
 wait(300);
 run("8-bit");
 wait(300);
-run("Nrrd ... ", "nrrd=[" + Ch1 + "]");
+run("Nrrd ... ", "nrrd=[./" + ch1 + "]");
 wait(800);
 close();
 
-File.saveString(levlog+"\r\n", logfile);
+File.saveString(levlog+"\r\n", "./"+logfile);
 
 run("Quit");
 
