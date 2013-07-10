@@ -15,6 +15,8 @@ else:
     
     c = -1
     
+    testrun = False
+    
     if (len(sys.argv) > 3):
         if ('T' in str(sys.argv[3]).upper()):
             testrun = True
