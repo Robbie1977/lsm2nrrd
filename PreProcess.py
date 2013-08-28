@@ -149,16 +149,16 @@ else:
     if (np.sum(Rs1) > (1.5 * np.sum(Rs2))):   #1.5 times bias required to swap from default
         print 'BG: C1\nSG: C2'
         if not testrun:
-            os.rename(str(sys.argv[1]),str(sys.argv[1]).replace('_C1','_BG'))
-            os.rename(str(sys.argv[2]),str(sys.argv[2]).replace('_C2','_SG'))
+            os.rename(str(sys.argv[1]),str(sys.argv[1]).replace('_C1.nrrd','_BG.nrrd'))
+            os.rename(str(sys.argv[2]),str(sys.argv[2]).replace('_C2.nrrd','_SG.nrrd'))
             print 'Files renamed - OK'
         else:
             print 'Changes not saved as just a test run.'
     else:
         print 'BG: C2\nSG: C1'
         if not testrun:
-            os.rename(str(sys.argv[1]),str(sys.argv[1]).replace('_C1','_SG'))
-            os.rename(str(sys.argv[2]),str(sys.argv[2]).replace('_C2','_BG'))
+            os.rename(str(sys.argv[1]),str(sys.argv[1]).replace('_C1.nrrd','_SG.nrrd'))
+            os.rename(str(sys.argv[2]),str(sys.argv[2]).replace('_C2.nrrd','_BG.nrrd'))
             print 'Files renamed - OK'
         else:
             print 'Changes not saved as just a test run.'
