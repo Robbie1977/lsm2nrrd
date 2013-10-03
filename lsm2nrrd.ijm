@@ -19,20 +19,21 @@ getDimensions(dummy, dummy, chn, dummy, dummy);
 logfile = replace(filename, ".lsm", "-PP_Meta.log");
 if (chn > 1) {
 	run("Split Channels");
-	wait(800);
+	wait(400);
 }
+levlog="";
 slices = 0;
 // we need to know only how many slices there are
 getDimensions(dummy, dummy, dummy, slices, dummy);
 for (var i = 0; i < chn; i++) {
-	print ("Processing channel "+d2s(chn-i,0)+"...")
-	chN = "Ch"+d2s(chn-i,0);
-	chF = replace(replace(filename, ".tif", ".lsm"), ".lsm", "-PP_C"+d2s(chn-i,0)+".nrrd");
-	run("Grouped Z Project...", "projection=[Max Intensity] group="+slices);
+	print ("Processing channel " + d2s(chn-i,0) + "...");
+	chN = "Ch" + d2s(chn-i,0);
+	chF = "./" + replace(replace(filename, ".tif", ".lsm"), ".lsm", "-PP_C" + d2s((chn - i),0) + ".nrrd");
+	run("Grouped Z Project...", "projection=[Max Intensity] group=" + slices);
 	wait(300);
 	getMinAndMax(hmin, hmax);
 	wait(100);
-	levlog=chN+":"+d2s(hmin,0)+","+d2s(hmax,0);
+	levlog=levlog + chN+":"+d2s(hmin,0)+","+d2s(hmax,0);
 	print ("Original background (min,max): " + d2s(hmin,0) + "," + d2s(hmax,0));
 	run("Enhance Contrast", "saturated=0.35");
 	wait(300);
@@ -46,8 +47,8 @@ for (var i = 0; i < chn; i++) {
 	wait(300);
 	run("8-bit");
 	wait(300);
-	run("Nrrd ... ", "nrrd=[./" + chF + "]");
-	wait(800);
+	run("Nrrd ... ", "nrrd=[" + chF + "]");
+	wait(400);
 	close();
 	wait(100);
 }
