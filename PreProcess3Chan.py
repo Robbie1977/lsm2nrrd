@@ -63,7 +63,6 @@ else:
         Rs3[0] = np.sum(data3[d1-d:d1+d,d2-d:d2+d,0:d3])
         Rs3[1] = np.sum(data3[d1-d:d1+d,d2-d:d2+d,s*d3:])
     
-#    here
         if testrun:
             print 'Results:'
             print Rs1
@@ -172,10 +171,10 @@ else:
         if (np.sum(Rs1) > (1.5 * np.sum(Rs3))):   #1.5 times bias required to swap from default
             print 'BG: C1\nNG: C2\nSG: C3'
             if not testrun:
-                   os.rename(str(sys.argv[1]),str(sys.argv[1]).replace('_C1.nrrd','_BG.nrrd'))
+                os.rename(str(sys.argv[1]),str(sys.argv[1]).replace('_C1.nrrd','_BG.nrrd'))
                 os.rename(str(sys.argv[2]),str(sys.argv[2]).replace('_C2.nrrd','_NG.nrrd'))
                 os.rename(ng,ng.replace('_C3.nrrd','_SG.nrrd'))
-                   print 'Files renamed - OK'
+                print 'Files renamed - OK'
             else:
                 print 'Changes not saved as just a test run.'
         else:
