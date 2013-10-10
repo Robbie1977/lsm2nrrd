@@ -130,6 +130,8 @@ else:
             nrrd.write('ClippedImageTestC2.nrrd', data2c, options=header2)
         else:
             print 'Clipping both images from %s to %s and saving...'% (str(data1.shape), str(data1c.shape))
+            header1['sizes']=data1c.shape
+            header2['sizes']=data2c.shape
             nrrd.write(str(sys.argv[1]), data1c, options=header1)
             nrrd.write(str(sys.argv[2]), data2c, options=header2)
             data1 = data1c

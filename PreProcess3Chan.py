@@ -137,6 +137,8 @@ else:
             data2c =data2[Cl:Cr,Ct:Cb,Cv:Cd]
             data3c =data3[Cl:Cr,Ct:Cb,Cv:Cd]
             
+            
+            
             if testrun:
                 print 'Clipping both images from %s to %s...'% (str(data1.shape), str(data1c.shape))
                 print 'Results saved to ClippedImageTestC[1,2].nrrd as test run...'
@@ -145,6 +147,9 @@ else:
                 nrrd.write('ClippedImageTestC3.nrrd', data3c, options=header3)
             else:
                 print 'Clipping both images from %s to %s and saving...'% (str(data1.shape), str(data1c.shape))
+                header1['sizes']=data1c.shape
+                header2['sizes']=data2c.shape
+                header3['sizes']=data3c.shape
                 nrrd.write(str(sys.argv[1]), data1c, options=header1)
                 nrrd.write(str(sys.argv[2]), data2c, options=header2)
                 nrrd.write(ng, data3c, options=header3)
@@ -310,6 +315,8 @@ else:
                 nrrd.write('ClippedImageTestC2.nrrd', data2c, options=header2)
             else:
                 print 'Clipping both images from %s to %s and saving...'% (str(data1.shape), str(data1c.shape))
+                header1['sizes']=data1c.shape
+                header2['sizes']=data2c.shape
                 nrrd.write(str(sys.argv[1]), data1c, options=header1)
                 nrrd.write(str(sys.argv[2]), data2c, options=header2)
                 data1 = data1c
