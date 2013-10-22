@@ -149,6 +149,11 @@ else:
             print 'Files saved - OK'
         else:
             print 'Changes not saved as just a test run.'
+#       Recalculate signal values after flip to ensure accurate BG/SG choice    
+        Rs1[0] = np.sum(data1[d1-d:d1+d,d2-d:d2+d,0:d3])
+        Rs1[1] = np.sum(data1[d1-d:d1+d,d2-d:d2+d,s*d3:])
+        Rs2[0] = np.sum(data2[d1-d:d1+d,d2-d:d2+d,0:d3])
+        Rs2[1] = np.sum(data2[d1-d:d1+d,d2-d:d2+d,s*d3:])
     
     if (np.sum(Rs1) > (1.5 * np.sum(Rs2))):   #1.5 times bias required to swap from default
         print 'BG: C1\nSG: C2'
