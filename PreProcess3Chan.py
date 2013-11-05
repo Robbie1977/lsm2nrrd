@@ -25,6 +25,9 @@ else:
         c = -1
         
         testrun = False
+        Mzflip = False
+        Myflip = False
+        Mxflip = False
         
         if (len(sys.argv) > 3):
             if ('T' in str(sys.argv[3]).upper()):
@@ -36,6 +39,17 @@ else:
                 except ValueError:
                     print 'Problem with given clipping threshold (must be an integer) using 0'
                     c = 0 
+            if ('Z' in str(sys.argv[3]).upper()):
+                Mzflip = True
+                print 'Manual Z flip requested...'
+             
+            if ('Y' in str(sys.argv[3]).upper()):
+                Myflip = True
+                print 'Manual Y flip requested...'
+             
+            if ('X' in str(sys.argv[3]).upper()):
+                Mxflip = True
+                print 'Manual X flip requested...'
             
                 
         else:
@@ -157,11 +171,42 @@ else:
                 data2 = data2c
                 data3 = data3c
         
-        if ( ((Rs3[0] > Rs3[1]) and (np.sum(Rs1) <= (1.5 * np.sum(Rs3)))) or ((Rs1[0] > Rs1[1]) and (np.sum(Rs1) > (1.5 * np.sum(Rs3))))):
+        if ( ( ((Rs3[0] > Rs3[1]) and (np.sum(Rs1) <= (1.5 * np.sum(Rs3)))) or ((Rs1[0] > Rs1[1]) and (np.sum(Rs1) > (1.5 * np.sum(Rs3))))) or (Mzflip) ) :
             print 'Flip required in Z axis'
-            data1 = np.flipud(data1)
-            data2 = np.flipud(data2)
-            data3 = np.flipud(data3)
+            data1 = data1[:,:,::-1]
+            data2 = data2[:,:,::-1]
+            data3 = data3[:,:,::-1]
+            if not testrun:
+                print 'Saving result to %s...'% str(sys.argv[1])
+                nrrd.write(str(sys.argv[1]), data1, options=header1)
+                print 'Saving result to %s...'% str(sys.argv[2])
+                nrrd.write(str(sys.argv[2]), data2, options=header2)
+                print 'Saving result to %s...'% ng
+                nrrd.write(ng, data3, options=header3)
+                print 'Files saved - OK'
+            else:
+                print 'Changes not saved as just a test run.'
+        if Mxflip:   
+            print 'Flip required in X axis'
+            data1 = data1[::-1,:,:]
+            data2 = data2[::-1,:,:]
+            data3 = data3[::-1,:,:]
+            if not testrun:
+                print 'Saving result to %s...'% str(sys.argv[1])
+                nrrd.write(str(sys.argv[1]), data1, options=header1)
+                print 'Saving result to %s...'% str(sys.argv[2])
+                nrrd.write(str(sys.argv[2]), data2, options=header2)
+                print 'Saving result to %s...'% ng
+                nrrd.write(ng, data3, options=header3)
+                print 'Files saved - OK'
+            else:
+                print 'Changes not saved as just a test run.'
+               
+        if Myflip:   
+            print 'Flip required in Y axis'
+            data1 = data1[:,::-1,:]
+            data2 = data2[:,::-1,:]
+            data3 = data3[:,::-1,:]
             if not testrun:
                 print 'Saving result to %s...'% str(sys.argv[1])
                 nrrd.write(str(sys.argv[1]), data1, options=header1)
