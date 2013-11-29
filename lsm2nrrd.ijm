@@ -16,7 +16,7 @@ wait(800);
 // we need to know only how many channels there are
 getDimensions(dummy, dummy, chn, dummy, dummy);
 	
-logfile = replace(filename, ".lsm", "-PP_Meta.log");
+logfile = replace(replace(filename, ".tif", ".lsm"), ".lsm", "-PP_Meta.log");
 if (chn > 1) {
 	run("Split Channels");
 	wait(400);
