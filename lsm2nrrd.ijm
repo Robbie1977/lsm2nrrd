@@ -23,6 +23,7 @@ if (chn > 1) {
 }else{    
     run("Split Channels");
     wait(400);
+    chn = 3;
 } // need a check for RGB
 levlog="";
 slices = 0;
