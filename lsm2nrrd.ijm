@@ -20,7 +20,10 @@ logfile = replace(replace(filename, ".tif", ".lsm"), ".lsm", "-PP_Meta.log");
 if (chn > 1) {
 	run("Split Channels");
 	wait(400);
-}
+}else{    
+    run("Split Channels");
+    wait(400);
+} // need a check for RGB
 levlog="";
 slices = 0;
 // we need to know only how many slices there are
