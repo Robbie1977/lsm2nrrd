@@ -32,7 +32,7 @@ getDimensions(dummy, dummy, dummy, slices, dummy);
 for (var i = 0; i < chn; i++) {
 	print ("Processing channel " + d2s(chn-i,0) + "...");
 	chN = "Ch" + d2s(chn-i,0);
-	chF = "./" + replace(replace(filename, ".tif", ".lsm"), ".lsm", "-PP_C" + d2s((chn - i),0) + ".nrrd");
+	chF = "./" + replace(replace(filename, ".tif", ".lsm"), ".lsm", "_Fo-PP_C" + d2s((chn - i),0) + ".nrrd");
 	run("Grouped Z Project...", "projection=[Max Intensity] group=" + slices);
 	wait(300);
 	getMinAndMax(hmin, hmax);
@@ -51,19 +51,23 @@ for (var i = 0; i < chn; i++) {
 	wait(300);
 	run("8-bit");
 	wait(300);
+//  Original
 	run("Nrrd ... ", "nrrd=[" + chF + "]");
 	wait(400);
+//  z flip
     chF = "./" + replace(replace(filename, ".tif", ".lsm"), ".lsm", "_Fz-PP_C" + d2s((chn - i),0) + ".nrrd");
     run("Flip Z");
     wait(300);
     run("Nrrd ... ", "nrrd=[" + chF + "]");
     wait(400);
-    chF = "./" + replace(replace(filename, ".tif", ".lsm"), ".lsm", "_Fzu-PP_C" + d2s((chn - i),0) + ".nrrd");
+//  complete flip  
+    chF = "./" + replace(replace(filename, ".tif", ".lsm"), ".lsm", "_Fc-PP_C" + d2s((chn - i),0) + ".nrrd");
     run("Flip Horizontally", "stack");
     run("Flip Vertically", "stack");
     wait(300);
     run("Nrrd ... ", "nrrd=[" + chF + "]"); 
     wait(400);
+//  Up/down (head/tail) rotation  [x & y flip from original] 
     chF = "./" + replace(replace(filename, ".tif", ".lsm"), ".lsm", "_Fu-PP_C" + d2s((chn - i),0) + ".nrrd");
     run("Flip Z");
     wait(300);
