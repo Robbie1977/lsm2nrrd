@@ -6,7 +6,6 @@ if (len(sys.argv) < 3):
     print 'Error: missing arguments!' 
     print 'e.g. python PreProcess.py image_ch1.nrrd image_ch2.nrrd [C #]' # t or tC = test run with no save.
 else:
-            
     print 'Processing %s and %s...'% (str(sys.argv[1]), str(sys.argv[2]))
     ng = str(sys.argv[1]).replace('1.nrrd', '3.nrrd')
     if os.path.exists(ng):
